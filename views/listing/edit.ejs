@@ -1,0 +1,78 @@
+<% layout("layouts/boilerplate") -%>
+<body>
+    <div class="row offset-2">
+    <div class="col-8 mt-3">
+    <form method="post" action="http://localhost:3000/listings/<%= oneList._id %>?_method=PATCH" enctype="multipart/form-data" novalidate class="needs-validation">
+        <h2 class="mb-3">Edit <%= oneList.title %> </h2>
+        
+        <div class="mb-3">
+            <label for="title" class="form-label" >Title : </label>
+            <input required id="title" placeholder="Enter title" name="listing[title]" value="<%= oneList.title %>" class="form-control">
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+              <div class="invalid-feedback">
+                Title should be valid 
+              </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="description">Description : </label>
+            <textarea required class="form-control" id="description"  placeholder="Enter description" name="listing[description]" rows="5" cols="50"><%= oneList.description %></textarea>
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+              <div class="invalid-feedback">
+                Add short description 
+              </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="price">Price : </label>
+            <input required class="form-control" id="price" value="<%= oneList.price %>" placeholder="Enter price" name="listing[price]" type="number">
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+              <div class="invalid-feedback">
+                Price should be valid 
+              </div>
+        </div>
+       <div class="row mb-3">
+            <div class="col-md-4">
+                <label class="form-label" for="country">Country : </label>
+                <input required class="form-control" id="country" value="<%= oneList.country %>" placeholder="Enter country" name="listing[country]">
+                <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                <div class="invalid-feedback">
+                    Country should be valid 
+                </div>
+            </div>
+            <div class="col-md-8">
+                <label class="form-label" for="location">Location : </label>
+                <input required class="form-control" id="location" value="<%= oneList.location %>" placeholder="Enter location" name="listing[location]">
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Location should be valid 
+                </div>
+            </div>
+       </div>
+
+       <div class="mb-3">
+        Original image :
+        <br /> <br />
+        <img class="small-img" src="<%= originalImageUrl %>">
+       </div>
+       
+        <div class="mb-3">
+            <label class="form-label" for="img">Upload New Image: </label>
+            <input type="file"  class="form-control" id="img"  name="listing[image]" >
+        </div>
+        <button class="btn btn-success mt-3 newbtn">Submit</button>
+        <br>
+        <br>
+    </form>
+</div>
+</div>
+</body>

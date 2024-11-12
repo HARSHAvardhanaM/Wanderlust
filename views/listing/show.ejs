@@ -1,0 +1,115 @@
+<% layout("/layouts/boilerplate.ejs") -%>
+<script>
+   const mapToken = "<%= process.env.MAP_TOKEN %>";
+   const listing = <%- JSON.stringify(oneList) %>
+</script>
+<body>
+    <div class="row r12 offset-2">
+    <div class="col-9  mb-3">
+    <h3 class="mb-2"><%= oneList.title %></h3>
+    </div>
+    <div class="card col-9 listingCard" >
+        <img src="<%= oneList.image.url %>"  class="card-img-top show-img col-9 mb-2" alt="Place image">
+        <div class="card-body">
+          <p class="card-text">Owned by : <i><%= oneList.owner.username %></i></p>
+          <p class="card-text"><%= oneList.description %><br class="br"></p>
+          <p class="card-text">&#8377; <%= oneList.price.toLocaleString("en-in") %> <br class="br"></p>
+          <p class="card-text"><%= oneList.location %> <br class="br"></p>
+          <p class="card-text"><%= oneList.country %> <br class="br"></p>
+          
+        </div>
+      </div>
+
+      <% if(currUser && currUser._id.equals(oneList.owner._id)) { %>
+        <div class="btn-show md-3 col-9">
+          <form method="get" action="http://localhost:3000/listings/<%= oneList._id %>/edit">
+              <button class="btn newbtn" >Edit</button>
+          </form> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <form method="post" action="http://localhost:3000/listings/<%= oneList._id %>/?_method=DELETE">
+              <button class="btn btn-dark">Delete</button>
+          </form>
+          
+        </div>
+        <% } %>
+
+    <div>
+      
+      <!-- Review -->
+
+      <% if(currUser) {%>
+      <div class="col-9  mb-3">
+        <hr />
+        <h4>Leave a review</h4>
+        <form method="post" action="/listings/<%= oneList.id %>/review" novalidate class="needs-validation">
+        
+          <div class="col-9  mb-3">
+            <br/>
+          <label class="form-label">Rating </label>
+          <fieldset class="starability-grow mb-3">
+            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+            <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+            <label for="first-rate1" title="Terrible">1 star</label>
+            <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+            <label for="first-rate2" title="Not good">2 stars</label>
+            <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+            <label for="first-rate3" title="Average">3 stars</label>
+            <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+            <label for="first-rate4" title="Very good">4 stars</label>
+            <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+            <label for="first-rate5" title="Amazing">5 stars</label>
+          </fieldset>  
+        </div>
+    
+          <div class="mb-3 mt-3">
+            <label class="form-label" for="comment">Comment</label>
+            <textarea class="form-control" rows="5" cols="50" id="comment" name="review[comment]" required class="form-control" ></textarea>
+          <div class="invalid-feedback">
+              Enter something to comment
+          </div>
+          </div>
+    
+        <button class="btn btn-outline-dark mb-3 mt-3">Submit</button>
+
+        
+        </form>
+      </div>
+
+      <% } %>
+      <hr / style="width:75%">
+      
+      <% if(oneList.review.length) { %>
+        
+  
+        <div class="row">
+          <p><b>All Reviews</b><p></p>
+
+        <% for(review of oneList.review){ %>
+          
+        <div class="card col-4 mb-3 ms-3 ">
+          <div class="card-body ">
+            <h5 class="card-title"><%= review.author.username %></h5>
+            <p class="starability-result card-text" data-rating="<%= review.rating %>">
+              Rated: <%= review.rating %>
+           </p>
+            <p class="card-text"><%= review.comment %></p>
+          </div>
+          <form method="post" action="/listings/<%= oneList._id %>/review/<%= review.id %>?_method=DELETE">
+            <button class="btn btn-sm btn-dark mb-1">Delete</button>
+          </form>
+        </div>
+
+        <% } %>
+
+        
+      </div>
+      <% } %>
+      </div>
+      <div class="col-9 mb-3">
+        <h3>Where you will be</h3>
+        <div id="map" style="width: 90vh; height: 300px;"></div>
+      </div>
+    </div>
+
+    <script src="/map.js"></script>
+</body>
+
