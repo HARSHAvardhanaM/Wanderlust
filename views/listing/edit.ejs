@@ -2,7 +2,7 @@
 <body>
     <div class="row offset-2">
     <div class="col-8 mt-3">
-    <form method="post" action="http://localhost:3000/listings/<%= oneList._id %>?_method=PATCH" enctype="multipart/form-data" novalidate class="needs-validation">
+    <form method="post" action="/listings/<%= oneList._id %>?_method=PATCH" enctype="multipart/form-data" novalidate class="needs-validation">
         <h2 class="mb-3">Edit <%= oneList.title %> </h2>
         
         <div class="mb-3">
