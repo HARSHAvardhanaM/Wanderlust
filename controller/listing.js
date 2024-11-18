@@ -62,7 +62,6 @@ module.exports.editListing = async (req,res)=>{
     }
     let updatedListing = await Listing.findByIdAndUpdate(id,update);
     updatedListing.geometry = response.body.features[0].geometry;
-    updatedListing.save();
     if(typeof req.file !== "undefined"){
         let url = req.file.path;
         let filename = req.file.filename;
