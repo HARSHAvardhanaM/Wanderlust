@@ -67,7 +67,6 @@ module.exports.editListing = async (req,res)=>{
         let url = req.file.path;
         let filename = req.file.filename;
         updatedListing.image = {url,filename};
-        updatedListing.geometry = response.body.features[0].geometry;
         updatedListing.save()
         }
     req.flash("successMsg","Listing updated successfully");
