@@ -22,10 +22,10 @@
 
       <% if(currUser && currUser._id.equals(oneList.owner._id)) { %>
         <div class="btn-show md-3 col-9">
-          <form method="get" action="http://localhost:3000/listings/<%= oneList._id %>/edit">
+          <form method="get" action="/listings/<%= oneList._id %>/edit">
               <button class="btn newbtn" >Edit</button>
           </form> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <form method="post" action="http://localhost:3000/listings/<%= oneList._id %>/?_method=DELETE">
+          <form method="post" action="/listings/<%= oneList._id %>/?_method=DELETE">
               <button class="btn btn-dark">Delete</button>
           </form>
           
