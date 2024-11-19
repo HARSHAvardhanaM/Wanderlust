@@ -1,0 +1,23 @@
+<% layout("/layouts/boilerplate.ejs") -%>
+
+<body>
+
+    <h3>Liked</h3>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+        <% for(listing of likedListings){ %>
+            <a class="box" href="/listings/<%= listing._id %>">
+                <div class="card col listingCard">
+                    <img src="<%= listing.image.url %>" class="card-img-top" alt="...">
+                    <div class="card-img-overlay"></div>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <p class="card-text"><b><%= listing.title %></b></p>
+                            <p class="card-text">&#8377; <%= listing.price.toLocaleString("en-IN")%>/night &nbsp; &nbsp; <i class="tax-info" style="display: none;">+ 18% GST</i></b></p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        <% } %>
+        </div>
+
+</body>

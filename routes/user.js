@@ -16,6 +16,17 @@ router.route("/login")
     passport.authenticate("local",{failureRedirect : "/login" , failureFlash : true}),
     userController.loginUser);
 
-router.get("/logout",userController.logout)
+router.get("/logout",userController.logout);
+
+router.post("/:userid/savelikes",async(req,res)=>{
+    const {userid} = req.params;
+    const {liked} = req.body
+    let user = await User.findById(userid);
+    user.liked=[];
+    if(liked[0]){
+        user.liked = liked.map((like)=>like);  
+    }
+    await user.save()
+})
 
 module.exports = router;

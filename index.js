@@ -61,6 +61,7 @@ app.use((req,res,next)=>{
 app.set("view engine", "ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.urlencoded({extended : true}));
+app.use(express.json())
 app.use(methodOverride('_method'));
 app.engine("ejs",ejsmate);
 app.use(express.static(path.join(__dirname,"/public/css")));
@@ -84,15 +85,15 @@ app.get("/",(req,res)=>{
     res.render("./listing/model.ejs");
 });
 
-app.get("/fakeUser",async (req,res)=>{
-    const fakeUser = new User({
-        email : "asdf@gmail.com",
-        username : "asdf"
-    });
+// app.get("/fakeUser",async (req,res)=>{
+//     const fakeUser = new User({
+//         email : "asdf@gmail.com",
+//         username : "asdf"
+//     });
 
-    let user = await User.register(fakeUser,"asdfpass");
-    res.send(user);
-})
+//     let user = await User.register(fakeUser,"asdfpass");
+//     res.send(user);
+// })
 
 app.use("/listings/:id/review",reviewsRoute);
 app.use("/listings",listingsRoute);

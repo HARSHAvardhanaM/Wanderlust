@@ -22,7 +22,16 @@ router.get("/new",updateTrend,isLoggedIn,listingController.renderNewForm);
 
 router.get("/search",listingController.searchListings)
 
-router.get("/trending",listingController.trendingListing)
+router.get("/trending",listingController.trendingListing);
+
+router.get("/liked",isLoggedIn,async(req,res)=>{
+    let likedListings = []
+    const user = req.user;
+    for(like of user.liked){
+        likedListings.push(await Listing.findById(like));
+    }
+    res.render("./listing/liked.ejs",{likedListings})
+})
 
 router.route("/:id")
 .patch(updateTrend,upload.single("listing[image]"),wrapAsync(listingController.editListing))
