@@ -12,6 +12,7 @@ const {storage} =require("../cloudinaryConfig.js")
 const upload = multer({storage})
 const listingController = require("../controller/listing.js");
 const {updateTrend} = require("../middleware.js");
+const User = require("../models/user.js");
 
 router.route("/")
 .get(updateTrend,wrapAsync(listingController.index))
@@ -24,14 +25,7 @@ router.get("/search",listingController.searchListings)
 
 router.get("/trending",listingController.trendingListing);
 
-router.get("/liked",isLoggedIn,async(req,res)=>{
-    let likedListings = []
-    const user = req.user;
-    for(like of user.liked){
-        likedListings.push(await Listing.findById(like));
-    }
-    res.render("./listing/liked.ejs",{likedListings})
-})
+router.get("/liked",isLoggedIn,listingController.likedListings)
 
 router.route("/:id")
 .patch(updateTrend,upload.single("listing[image]"),wrapAsync(listingController.editListing))

@@ -112,3 +112,17 @@ module.exports.trendingListing = async(req,res)=>{
         res.redirect("/listings")
     }
 };
+
+module.exports.likedListings = async(req,res)=>{
+    let likedListings = []
+    const user = req.user;
+    for(like of user.liked){
+        let list = await Listing.findById(like)
+        if(list){
+            likedListings.push(list);
+        }
+        if(!list) {
+            await User.findByIdAndUpdate(user._id,{ $pull : { liked :  like._id }});
+        }
+    }
+    res.render("./listing/liked.ejs",{likedListings})};
