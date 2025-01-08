@@ -22,9 +22,11 @@
           <p class="card-text">&#8377; <%= oneList.price.toLocaleString("en-in") %> <br class="br"></p>
           <p class="card-text"><%= oneList.location %> <br class="br"></p>
           <p class="card-text"><%= oneList.country %> <br class="br"></p>
-          <span style="margin-left: 50%;">
-            <button id="like"><i id="likeBtn" class="fa-solid fa-heart"></i></button>
-        </span>
+          <% if(currUser){ %>
+            <span style="margin-left: 50%;">
+              <button id="like"><i id="likeBtn" class="fa-solid fa-heart"></i></button>
+          </span>
+          <% } %>
         </div>
       </div>
 
